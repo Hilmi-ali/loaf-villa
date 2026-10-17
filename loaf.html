@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loaf Villa — Quiet rooms, made by hand</title>
+<meta name="description" content="Loaf Villa is a small specialty motel & villa with an artisanal, calm and precise approach to staying.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  /* Apply saved/system theme before paint to avoid flash */
+  (function(){
+    var t=null;try{t=localStorage.getItem('lv-theme')}catch(e){}
+    if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    document.documentElement.classList.toggle('dark',t==='dark');
+  })();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config={darkMode:'class',theme:{extend:{
+    fontFamily:{display:['"Bricolage Grotesque"','sans-serif'],sans:['"Plus Jakarta Sans"','sans-serif']},
+    colors:{
+      bg:'rgb(var(--bg) / <alpha-value>)',surface:'rgb(var(--surface) / <alpha-value>)',
+      ink:'rgb(var(--ink) / <alpha-value>)',mute:'rgb(var(--mute) / <alpha-value>)',
+      line:'rgb(var(--line) / <alpha-value>)',moss:'rgb(var(--moss) / <alpha-value>)',
+      onmoss:'rgb(var(--onmoss) / <alpha-value>)',butter:'rgb(var(--butter) / <alpha-value>)'
+    }}}}
+</script>
+<style>
+  :root{--bg:233 236 226;--surface:250 250 245;--ink:17 26 23;--mute:66 80 74;--line:195 203 192;
+        --moss:31 58 52;--onmoss:246 247 244;--butter:232 212 139;--road:255 255 255;--block:228 233 227;--water:196 214 214}
+  .dark{--bg:16 23 20;--surface:29 40 35;--ink:240 243 237;--mute:176 189 181;--line:56 72 65;
+        --moss:169 191 174;--onmoss:15 21 19;--butter:232 212 139;--road:44 58 53;--block:27 37 34;--water:30 50 52}
+  body{transition:background-color .4s ease,color .4s ease;
+    background-image:radial-gradient(60rem 40rem at 90% -10%,rgb(var(--butter)/.22),transparent 60%),radial-gradient(50rem 40rem at -10% 40%,rgb(var(--moss)/.12),transparent 60%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
+    background-attachment:fixed,fixed,scroll}
+  .band{background:rgb(var(--surface)/.7)}
+  .tt{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+  .ph{background:linear-gradient(135deg,rgb(var(--line)),rgb(var(--block)))}
+  img{background:rgb(var(--line))}
+  /* hero entrance: the page's single orchestrated moment */
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  .rise{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+  .d1{animation-delay:.12s}.d2{animation-delay:.24s}.d3{animation-delay:.38s}
+  @keyframes ping2{0%{r:8;opacity:.6}100%{r:34;opacity:0}}
+  .pulse{animation:ping2 2.2s ease-out infinite}
+  .noscroll{scrollbar-width:none}.noscroll::-webkit-scrollbar{display:none}
+  :focus-visible{outline:2px solid rgb(var(--moss));outline-offset:3px;border-radius:6px}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body class="bg-bg text-ink font-sans antialiased">
+
+<!-- NAV -->
+<header class="fixed inset-x-0 top-0 z-50">
+  <nav class="mx-auto mt-3 flex max-w-6xl items-center justify-between gap-4 rounded-full border border-line bg-bg/90 px-5 py-2.5 backdrop-blur-xl tt" style="margin-inline:max(.75rem,calc((100vw - 72rem)/2))" aria-label="Main">
+    <a href="#top" class="font-display text-xl font-extrabold tracking-tight">Loaf<span class="text-mute font-medium"> Villa</span></a>
+    <ul class="hidden items-center gap-8 text-sm font-medium text-mute md:flex">
+      <li><a class="hover:text-ink transition-colors" href="#about">About</a></li>
+      <li><a class="hover:text-ink transition-colors" href="#menu">Menu</a></li>
+      <li><a class="hover:text-ink transition-colors" href="#experience">Experience</a></li>
+      <li><a class="hover:text-ink transition-colors" href="#location">Location</a></li>
+    </ul>
+    <div class="flex items-center gap-2">
+      <button id="themeBtn" class="grid h-10 w-10 place-items-center rounded-full border border-line hover:bg-surface transition-colors tt" aria-label="Switch to dark mode">
+        <svg id="icoMoon" class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg id="icoSun" class="hidden h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button id="cartBtn" class="rounded-full bg-moss px-5 py-2.5 text-sm font-semibold text-onmoss transition-transform hover:-translate-y-0.5 active:translate-y-0">
+        Reserve a room <span id="cartCount" class="ml-1 hidden rounded-full bg-butter px-2 py-0.5 text-xs text-[#16201d]">0</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="mx-auto grid max-w-6xl gap-12 px-5 pb-24 pt-36 lg:grid-cols-12 lg:items-end lg:pt-44">
+  <div class="lg:col-span-6 lg:pb-6">
+    <h1 class="rise font-display text-5xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">Sleep slowly.<br>Wake to warm bread.</h1>
+    <p class="rise d1 mt-7 max-w-md text-lg leading-relaxed text-mute">Eight quiet rooms and two villas, made with the patience of a good loaf. Nothing extra. Everything considered.</p>
+    <div class="rise d2 mt-9 flex flex-wrap gap-3">
+      <a href="#menu" class="rounded-full bg-moss px-7 py-3.5 text-sm font-semibold text-onmoss transition-transform hover:-translate-y-0.5">Explore menu</a>
+      <a href="#location" class="rounded-full border border-ink/30 px-7 py-3.5 text-sm font-semibold transition-colors hover:bg-ink hover:text-bg">Visit us</a>
+    </div>
+  </div>
+  <div class="rise d3 grid grid-cols-6 grid-rows-6 gap-3 sm:gap-4 lg:col-span-6 h-[460px] sm:h-[560px]">
+    <figure class="group col-span-4 row-span-4 overflow-hidden rounded-[2rem] rounded-tr-[6rem]"><img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80" alt="Villa exterior at dusk" loading="eager"></figure>
+    <figure class="group col-span-2 row-span-3 overflow-hidden rounded-full"><img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=500&q=80" alt="Bedroom with linen bedding"></figure>
+    <figure class="group col-span-2 row-span-3 overflow-hidden rounded-[2rem]"><img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80" alt="Fresh baked bread"></figure>
+    <figure class="group col-span-4 row-span-2 overflow-hidden rounded-[2rem] rounded-bl-[5rem]"><img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80" alt="Quiet courtyard pool"></figure>
+    <figure class="col-span-2 row-span-1 grid place-items-center rounded-[2rem] bg-butter text-[#16201d]"><span class="font-display text-lg font-bold leading-tight text-center">Est. 2019</span></figure>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="border-y border-line band tt">
+  <div class="mx-auto grid max-w-6xl items-center gap-14 px-5 py-28 lg:grid-cols-12">
+    <div class="relative lg:col-span-5">
+      <img class="aspect-[4/5] w-full rounded-[2rem] object-cover" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=900&q=80" alt="Minimal room with natural light">
+      <img class="absolute -bottom-8 -right-4 hidden aspect-square w-40 rounded-3xl border-8 border-surface object-cover tt sm:block" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80" alt="Morning coffee">
+    </div>
+    <div class="lg:col-span-6 lg:col-start-7">
+      <h2 class="font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl">A stay, proofed like dough.</h2>
+      <p class="mt-6 max-w-lg text-lg leading-relaxed text-mute">We started with a simple rule: a good room, like a good loaf, needs time, few ingredients and a steady hand. Our linens are washed in small batches, our walls are limewashed, and breakfast is baked on site before you wake.</p>
+      <p class="mt-4 max-w-lg leading-relaxed text-mute">No lobby music. No lanyards. Just a key, a quiet bed and someone who remembers how you take your coffee.</p>
+      <dl class="mt-12 grid grid-cols-3 gap-6 border-t border-line pt-8">
+        <div><dt class="text-sm text-mute">Hours of morning bake</dt><dd class="mt-1 font-display text-4xl font-bold"><span data-count="4">0</span></dd></div>
+        <div><dt class="text-sm text-mute">Comfort, on every stay</dt><dd class="mt-1 font-display text-4xl font-bold"><span data-count="100">0</span>%</dd></div>
+        <div><dt class="text-sm text-mute">Guest rating</dt><dd class="mt-1 font-display text-4xl font-bold"><span data-count="4.9" data-dec="1">0</span>/5</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="mx-auto max-w-6xl px-5 pt-24">
+  <h2 class="font-display text-3xl font-bold tracking-tight sm:text-4xl">Included in every stay</h2>
+  <ul class="mt-10 grid gap-px overflow-hidden rounded-[1.75rem] border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+    <li class="bg-surface p-6 tt"><p class="font-semibold">Fast Wi-Fi</p><p class="mt-1 text-sm text-mute">100 Mbps fibre in every room and the courtyard.</p></li>
+    <li class="bg-surface p-6 tt"><p class="font-semibold">Air conditioning</p><p class="mt-1 text-sm text-mute">Quiet inverter units with individual control.</p></li>
+    <li class="bg-surface p-6 tt"><p class="font-semibold">Fresh breakfast</p><p class="mt-1 text-sm text-mute">Bread baked on site, served 07:00–10:00.</p></li>
+    <li class="bg-surface p-6 tt"><p class="font-semibold">Free parking</p><p class="mt-1 text-sm text-mute">Covered space for 12 cars and 20 motorbikes.</p></li>
+    <li class="bg-surface p-6 tt"><p class="font-semibold">Reception</p><p class="mt-1 text-sm text-mute">Staffed daily. After-hours check-in by code.</p></li>
+    <li class="bg-surface p-6 tt"><p class="font-semibold">Hot water and linen</p><p class="mt-1 text-sm text-mute">Cotton linen washed in small batches, changed every 2 days.</p></li>
+  </ul>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="mx-auto max-w-6xl px-5 py-28">
+  <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+    <div>
+      <h2 class="font-display text-4xl font-bold tracking-tight sm:text-5xl">The stay menu</h2>
+      <p class="mt-4 max-w-md text-mute">Choose a room, add breakfast, pick a few extras. Tap + to build your reservation. Prices are in rupiah and include tax. Free cancellation up to 48 hours before check-in.</p>
+    </div>
+    <div id="tabs" class="flex w-fit gap-1 rounded-full border border-line bg-surface p-1 tt" role="tablist" aria-label="Menu categories">
+      <button role="tab" data-cat="all" class="rounded-full px-5 py-2 text-sm font-semibold transition-colors">All</button>
+      <button role="tab" data-cat="rooms" class="rounded-full px-5 py-2 text-sm font-semibold transition-colors">Rooms</button>
+      <button role="tab" data-cat="breakfast" class="rounded-full px-5 py-2 text-sm font-semibold transition-colors">Breakfast</button>
+      <button role="tab" data-cat="extras" class="rounded-full px-5 py-2 text-sm font-semibold transition-colors">Extras</button>
+    </div>
+  </div>
+  <div id="grid" class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+</section>
+
+<!-- EXPERIENCE / GALLERY -->
+<section id="experience" class="border-t border-line py-28 tt">
+  <div class="mx-auto flex max-w-6xl items-end justify-between px-5">
+    <div>
+      <h2 class="font-display text-4xl font-bold tracking-tight sm:text-5xl">Atmosphere</h2>
+      <p class="mt-4 max-w-md text-mute">Raw timber, limewash, soft light. Scroll through the rooms and corners guests remember.</p>
+    </div>
+    <div class="hidden gap-2 sm:flex">
+      <button id="prev" class="grid h-12 w-12 place-items-center rounded-full border border-line transition-colors hover:bg-ink hover:text-bg" aria-label="Previous"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <button id="next" class="grid h-12 w-12 place-items-center rounded-full border border-line transition-colors hover:bg-ink hover:text-bg" aria-label="Next"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <div id="rail" class="noscroll mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-2" style="padding-inline:max(1.25rem,calc((100vw - 72rem)/2 + 1.25rem))" tabindex="0" aria-label="Gallery">
+    <figure class="group relative h-[420px] w-[300px] shrink-0 snap-start overflow-hidden rounded-[2rem]"><img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=700&q=80" alt="Quiet bedroom"><figcaption class="absolute inset-x-4 bottom-4 rounded-2xl bg-bg/75 px-4 py-2 text-sm font-semibold backdrop-blur-md">The Crumb Room</figcaption></figure>
+    <figure class="group relative h-[420px] w-[420px] shrink-0 snap-start overflow-hidden rounded-[2rem]"><img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80" alt="Modern villa"><figcaption class="absolute inset-x-4 bottom-4 rounded-2xl bg-bg/75 px-4 py-2 text-sm font-semibold backdrop-blur-md">Villa Oven</figcaption></figure>
+    <figure class="group relative h-[420px] w-[300px] shrink-0 snap-start overflow-hidden rounded-[2rem]"><img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=700&q=80" alt="Room detail"><figcaption class="absolute inset-x-4 bottom-4 rounded-2xl bg-bg/75 px-4 py-2 text-sm font-semibold backdrop-blur-md">Linen, folded</figcaption></figure>
+    <figure class="group relative h-[420px] w-[380px] shrink-0 snap-start overflow-hidden rounded-[2rem]"><img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80" alt="Pool at the villa"><figcaption class="absolute inset-x-4 bottom-4 rounded-2xl bg-bg/75 px-4 py-2 text-sm font-semibold backdrop-blur-md">Courtyard pool</figcaption></figure>
+    <figure class="group relative h-[420px] w-[300px] shrink-0 snap-start overflow-hidden rounded-[2rem]"><img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=700&q=80" alt="Lounge corner"><figcaption class="absolute inset-x-4 bottom-4 rounded-2xl bg-bg/75 px-4 py-2 text-sm font-semibold backdrop-blur-md">Reading corner</figcaption></figure>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location" class="mx-auto max-w-6xl px-5 py-28">
+  <h2 class="font-display text-4xl font-bold tracking-tight sm:text-5xl">Find the front door</h2>
+  <div class="mt-14 grid gap-6 lg:grid-cols-12">
+    <div class="rounded-[2rem] border border-line bg-surface p-8 tt lg:col-span-5">
+      <div class="flex items-center justify-between">
+        <h3 class="font-display text-2xl font-bold">Hours</h3>
+        <span id="status" class="flex items-center gap-2 rounded-full border border-line px-3 py-1 text-sm font-semibold"><span id="dot" class="h-2 w-2 rounded-full bg-mute"></span><span id="statusTxt">Checking</span></span>
+      </div>
+      <ul id="hours" class="mt-6 divide-y divide-line text-sm"></ul>
+      <div class="mt-6 grid grid-cols-2 gap-4 rounded-2xl bg-bg p-4 text-sm tt">
+        <div><p class="text-mute">Check-in</p><p class="font-semibold">from 14:00</p></div>
+        <div><p class="text-mute">Check-out</p><p class="font-semibold">until 12:00</p></div>
+      </div>
+      <p class="mt-6 text-sm leading-relaxed text-mute">Jl. Sawah Tinggi No. 8<br>Central Java, Indonesia</p>
+    </div>
+    <div class="relative overflow-hidden rounded-[2rem] border border-line tt lg:col-span-7" style="background:rgb(var(--block))">
+      <svg viewBox="0 0 600 440" class="h-full min-h-[360px] w-full" role="img" aria-label="Stylised map showing Loaf Villa">
+        <rect width="600" height="440" fill="rgb(var(--block))"/>
+        <path d="M-10 330 C120 300 200 380 330 340 S520 280 620 310 L620 450 L-10 450Z" fill="rgb(var(--water))"/>
+        <g fill="none" stroke="rgb(var(--road))" stroke-linecap="round">
+          <path d="M-10 120 L610 80" stroke-width="16"/><path d="M180 -10 L230 300" stroke-width="12"/>
+          <path d="M420 -10 L380 330" stroke-width="12"/><path d="M-10 220 C150 200 300 250 610 200" stroke-width="8"/>
+          <path d="M300 90 L310 210" stroke-width="6"/><path d="M80 120 L60 300" stroke-width="6"/>
+        </g>
+        <g fill="rgb(var(--line))" opacity=".7"><rect x="215" y="135" width="70" height="55" rx="8"/><rect x="445" y="115" width="80" height="60" rx="8"/><rect x="100" y="140" width="60" height="50" rx="8"/><rect x="445" y="225" width="90" height="50" rx="8"/><rect x="60" y="235" width="90" height="45" rx="8"/></g>
+        <circle class="pulse" cx="330" cy="150" r="8" fill="rgb(var(--butter))"/>
+        <g transform="translate(330 150)"><circle r="14" fill="rgb(var(--moss))"/><path d="M-5 2 L0 -6 L5 2 V7 H-5Z" fill="rgb(var(--onmoss))"/></g>
+      </svg>
+      <div class="absolute left-5 top-5 rounded-2xl border border-line bg-bg/80 px-4 py-3 backdrop-blur-md">
+        <p class="font-display font-bold">Loaf Villa</p><p class="text-xs text-mute">Walk-ins welcome until 21:00</p>
+      </div>
+      <a href="https://maps.google.com" target="_blank" rel="noopener" class="absolute bottom-5 right-5 rounded-full bg-moss px-5 py-2.5 text-sm font-semibold text-onmoss transition-transform hover:-translate-y-0.5">Get directions</a>
+    </div>
+  </div>
+</section>
+<!-- GETTING HERE + FAQ -->
+<section class="border-t border-line band tt">
+  <div class="mx-auto grid max-w-6xl gap-14 px-5 py-28 lg:grid-cols-12">
+    <div class="lg:col-span-5">
+      <h2 class="font-display text-3xl font-bold tracking-tight sm:text-4xl">Getting here</h2>
+      <ul class="mt-8 divide-y divide-line border-y border-line text-sm">
+        <li class="flex justify-between py-4"><span>From the nearest town centre</span><span class="font-semibold">10 min by car</span></li>
+        <li class="flex justify-between py-4"><span>From the train station</span><span class="font-semibold">35 min by car</span></li>
+        <li class="flex justify-between py-4"><span>From the nearest airport</span><span class="font-semibold">2 hr by car</span></li>
+        <li class="flex justify-between py-4"><span>Pick-up service</span><span class="font-semibold">Rp 150.000</span></li>
+      </ul>
+      <p class="mt-6 text-sm leading-relaxed text-mute">Need help finding us? Message us on WhatsApp and we will share a pin and a photo of the gate.</p>
+    </div>
+    <div class="lg:col-span-6 lg:col-start-7">
+      <h2 class="font-display text-3xl font-bold tracking-tight sm:text-4xl">Good to know</h2>
+      <div class="mt-8 divide-y divide-line border-y border-line">
+        <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold">How do I reserve?<span class="text-xl transition-transform group-open:rotate-45">+</span></summary><p class="mt-3 text-sm leading-relaxed text-mute">Add a room and any extras to your reservation, then send the request. We confirm by email within a day. Payment is made on arrival.</p></details>
+        <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold">Can I cancel or change dates?<span class="text-xl transition-transform group-open:rotate-45">+</span></summary><p class="mt-3 text-sm leading-relaxed text-mute">Yes. Cancel free of charge up to 48 hours before check-in. Date changes are free, subject to availability.</p></details>
+        <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold">Are pets and children welcome?<span class="text-xl transition-transform group-open:rotate-45">+</span></summary><p class="mt-3 text-sm leading-relaxed text-mute">Children of all ages are welcome, and Villa Oven suits families best. Small pets are allowed in the villas only.</p></details>
+        <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold">Is there a quiet time?<span class="text-xl transition-transform group-open:rotate-45">+</span></summary><p class="mt-3 text-sm leading-relaxed text-mute">Quiet hours run from 22:00 to 07:00. The courtyard pool closes at 21:00.</p></details>
+        <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold">Can you cater to dietary needs?<span class="text-xl transition-transform group-open:rotate-45">+</span></summary><p class="mt-3 text-sm leading-relaxed text-mute">Vegetarian and vegan options are available. Tell us about allergies when you reserve and the kitchen will plan around them.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-line bg-surface tt">
+  <div class="mx-auto grid max-w-6xl gap-12 px-5 py-20 md:grid-cols-2">
+    <div>
+      <p class="font-display text-3xl font-extrabold tracking-tight">Loaf Villa</p>
+      <p class="mt-3 max-w-xs text-mute">Quiet rooms, made by hand.</p>
+      <ul class="mt-8 flex gap-3 text-sm font-semibold">
+        <li><a class="rounded-full border border-line px-4 py-2 transition-colors hover:bg-ink hover:text-bg" href="#">Instagram</a></li>
+        <li><a class="rounded-full border border-line px-4 py-2 transition-colors hover:bg-ink hover:text-bg" href="#">TikTok</a></li>
+        <li><a class="rounded-full border border-line px-4 py-2 transition-colors hover:bg-ink hover:text-bg" href="#">WhatsApp</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-display text-xl font-bold">Seasonal offers, once a month</h3>
+      <form id="news" class="mt-5 flex items-center gap-2 rounded-full border border-line bg-bg p-1.5 tt focus-within:border-moss">
+        <label for="email" class="sr-only">Email</label>
+        <input id="email" type="email" required placeholder="you@email.com" class="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm outline-none placeholder:text-mute">
+        <button class="rounded-full bg-moss px-5 py-2.5 text-sm font-semibold text-onmoss">Subscribe</button>
+      </form>
+      <p id="newsMsg" class="mt-3 h-5 text-sm text-mute" aria-live="polite"></p>
+    </div>
+  </div>
+  <p class="border-t border-line px-5 py-6 text-center text-sm text-mute">© 2026 Loaf Villa. Concept design for portfolio use.</p>
+</footer>
+
+<!-- CART DRAWER -->
+<div id="scrim" class="fixed inset-0 z-[60] hidden bg-ink/40 backdrop-blur-sm"></div>
+<aside id="drawer" class="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm translate-x-full flex-col border-l border-line bg-bg p-6 transition-transform duration-500 tt" aria-label="Your reservation" aria-hidden="true">
+  <div class="flex items-center justify-between"><h3 class="font-display text-2xl font-bold">Your reservation</h3><button id="closeCart" class="grid h-10 w-10 place-items-center rounded-full border border-line" aria-label="Close">✕</button></div>
+  <ul id="cartList" class="mt-6 flex-1 divide-y divide-line overflow-y-auto text-sm"></ul>
+  <div class="border-t border-line pt-5">
+    <div class="flex justify-between font-semibold"><span>Estimated total</span><span id="total">Rp 0</span></div>
+    <button id="send" class="mt-4 w-full rounded-full bg-moss py-3.5 text-sm font-semibold text-onmoss disabled:opacity-40" disabled>Send reservation request</button>
+    <p id="sendMsg" class="mt-3 min-h-5 text-center text-sm text-mute" aria-live="polite"></p>
+  </div>
+</aside>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const rp=n=>'Rp '+n.toLocaleString('id-ID');
+const u=(id,w=700)=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+
+/* THEME */
+const root=document.documentElement, btn=$('#themeBtn');
+function paintTheme(){
+  const d=root.classList.contains('dark');
+  $('#icoMoon').classList.toggle('hidden',d); $('#icoSun').classList.toggle('hidden',!d);
+  btn.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');
+}
+btn.addEventListener('click',()=>{
+  root.classList.toggle('dark');
+  try{localStorage.setItem('lv-theme',root.classList.contains('dark')?'dark':'light')}catch(e){}
+  paintTheme();
+});
+paintTheme();
+
+/* MENU DATA */
+const items=[
+  {id:1,cat:'rooms',name:'The Crumb Room',desc:'Queen bed, limewashed walls, garden view.',price:450000,img:'photo-1505693416388-ac5ce068fe85'},
+  {id:2,cat:'rooms',name:'The Crust Suite',desc:'King bed, soaking tub and a private terrace.',price:780000,img:'photo-1631049307264-da0ec9d70304'},
+  {id:3,cat:'rooms',name:'Villa Oven',desc:'Two bedrooms, pool and kitchen for up to 5 guests.',price:1850000,img:'photo-1600596542815-ffad4c1539a9'},
+  {id:4,cat:'breakfast',name:'Sourdough Plate',desc:'House loaf, cultured butter, seasonal jam.',price:55000,img:'photo-1509440159596-0249088772ff'},
+  {id:5,cat:'breakfast',name:'Slow Pancakes',desc:'Buttermilk stack with palm sugar syrup.',price:70000,img:'photo-1533089860892-a7c6f0a88666'},
+  {id:6,cat:'breakfast',name:'Pour-over Coffee',desc:'Single-origin beans, brewed to order.',price:35000,img:'photo-1495474472287-4d71bcdd2085'},
+  {id:7,cat:'extras',name:'Pool Hour',desc:'Private courtyard pool, 60 minutes at golden hour.',price:150000,img:'photo-1566073771259-6a8506099945'},
+  {id:8,cat:'extras',name:'Late Checkout',desc:'Stay until 16:00 and sleep in a little longer.',price:120000,img:'photo-1540518614846-7eded433c457'},
+  {id:9,cat:'extras',name:'Reading Corner Kit',desc:'Blanket, tea and a curated paperback.',price:90000,img:'photo-1502672260266-1c1ef2d93688'}
+];
+const meta={1:['22 m²','2 guests','Queen bed','Garden view'],2:['34 m²','2 guests','King bed','Private terrace'],3:['120 m²','5 guests','2 bedrooms','Pool + kitchen'],
+ 4:['Served 07:00–10:00','Vegetarian'],5:['Served 07:00–10:00','Contains dairy & egg'],6:['Served all day','Vegan milk available'],
+ 7:['60 min','Max 4 guests','Book a day ahead'],8:['Until 16:00','Subject to availability'],9:['Per stay','Delivered to room']};
+const cart=new Map();
+
+/* MENU RENDER + FILTER */
+const grid=$('#grid');
+function card(i){
+  return `<article class="group flex flex-col overflow-hidden rounded-[1.75rem] border border-line bg-surface transition-all duration-500 tt hover:-translate-y-1.5 shadow-sm hover:shadow-xl hover:shadow-ink/10">
+    <div class="relative aspect-[4/3] overflow-hidden"><img class="h-full w-full object-cover transition duration-700 group-hover:scale-110 group-hover:blur-[1.5px]" loading="lazy" src="${u('photo-'+i.img.replace('photo-',''))}" alt="${i.name}"></div>
+    <div class="flex flex-1 flex-col p-5">
+      <h3 class="font-display text-xl font-bold">${i.name}</h3>
+      <p class="mt-1.5 text-sm leading-relaxed text-mute">${i.desc}</p>
+      <ul class="mt-3 flex flex-1 flex-wrap content-start gap-1.5">${meta[i.id].map(m=>`<li class="rounded-full border border-line px-2.5 py-1 text-xs font-medium">${m}</li>`).join('')}</ul>
+      <div class="mt-5 flex items-center justify-between"><p class="font-semibold">${rp(i.price)}<span class="text-sm font-normal text-mute">${i.cat==='rooms'?' / night':''}</span></p>
+      <button data-add="${i.id}" class="grid h-11 w-11 place-items-center rounded-full bg-moss text-xl font-semibold text-onmoss transition-transform hover:rotate-90" aria-label="Add ${i.name}">+</button></div>
+    </div></article>`;
+}
+function renderMenu(cat){
+  grid.innerHTML=items.filter(i=>cat==='all'||i.cat===cat).map(card).join('');
+  $$('#tabs button').forEach(b=>{
+    const on=b.dataset.cat===cat;
+    b.setAttribute('aria-selected',on);
+    b.className='rounded-full px-5 py-2 text-sm font-semibold transition-colors '+(on?'bg-moss text-onmoss':'text-mute hover:text-ink');
+  });
+}
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b)renderMenu(b.dataset.cat)});
+grid.addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;
+  const id=+b.dataset.add;cart.set(id,(cart.get(id)||0)+1);updateCart();openCart(false);b.animate([{transform:'scale(1)'},{transform:'scale(1.25)'},{transform:'scale(1)'}],{duration:300})});
+renderMenu('all');
+
+/* CART */
+const drawer=$('#drawer'),scrim=$('#scrim');
+function openCart(){drawer.classList.remove('translate-x-full');drawer.setAttribute('aria-hidden','false');scrim.classList.remove('hidden')}
+function closeCart(){drawer.classList.add('translate-x-full');drawer.setAttribute('aria-hidden','true');scrim.classList.add('hidden')}
+$('#cartBtn').addEventListener('click',openCart);$('#closeCart').addEventListener('click',closeCart);scrim.addEventListener('click',closeCart);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCart()});
+function updateCart(){
+  const list=$('#cartList');let total=0,count=0;
+  list.innerHTML=[...cart].map(([id,q])=>{const i=items.find(x=>x.id===id);total+=i.price*q;count+=q;
+    return `<li class="flex items-center justify-between gap-3 py-4"><div><p class="font-semibold">${i.name}</p><p class="text-mute">${rp(i.price)}</p></div>
+    <div class="flex items-center gap-2"><button data-dec="${id}" class="h-8 w-8 rounded-full border border-line" aria-label="Remove one">−</button><span class="w-5 text-center">${q}</span><button data-inc="${id}" class="h-8 w-8 rounded-full border border-line" aria-label="Add one">+</button></div></li>`}).join('')
+    ||'<li class="py-10 text-center text-mute">Nothing here yet. Add a room from the menu.</li>';
+  $('#total').textContent=rp(total);$('#send').disabled=!count;$('#sendMsg').textContent='';
+  const c=$('#cartCount');c.textContent=count;c.classList.toggle('hidden',!count);
+}
+$('#cartList').addEventListener('click',e=>{const d=e.target.closest('[data-dec]'),n=e.target.closest('[data-inc]');
+  if(n){cart.set(+n.dataset.inc,cart.get(+n.dataset.inc)+1)}
+  if(d){const id=+d.dataset.dec,q=cart.get(id)-1;q?cart.set(id,q):cart.delete(id)}
+  updateCart()});
+$('#send').addEventListener('click',()=>{cart.clear();updateCart();$('#sendMsg').textContent='Request sent. We will confirm by email within a day.'});
+updateCart();
+
+/* STAT COUNTERS (run once when visible) */
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;io.unobserve(en.target);
+  const el=en.target,to=+el.dataset.count,dec=+(el.dataset.dec||0),t0=performance.now();
+  (function step(t){const p=Math.min((t-t0)/1200,1),e=1-Math.pow(1-p,3);el.textContent=(to*e).toFixed(dec);if(p<1)requestAnimationFrame(step)})(t0)}),{threshold:.6});
+$$('[data-count]').forEach(el=>io.observe(el));
+
+/* GALLERY */
+const rail=$('#rail');
+$('#next').addEventListener('click',()=>rail.scrollBy({left:340,behavior:'smooth'}));
+$('#prev').addEventListener('click',()=>rail.scrollBy({left:-340,behavior:'smooth'}));
+rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight')rail.scrollBy({left:340,behavior:'smooth'});if(e.key==='ArrowLeft')rail.scrollBy({left:-340,behavior:'smooth'})});
+
+/* HOURS + LIVE STATUS */
+const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const hrs={0:[8,20],1:[7,21],2:[7,21],3:[7,21],4:[7,21],5:[7,22],6:[7,22]};
+const today=new Date().getDay();
+$('#hours').innerHTML=[1,2,3,4,5,6,0].map(d=>`<li class="flex justify-between py-3 ${d===today?'font-semibold':'text-mute'}"><span>${days[d]}</span><span>${String(hrs[d][0]).padStart(2,'0')}:00 – ${hrs[d][1]}:00</span></li>`).join('');
+const h=new Date().getHours()+new Date().getMinutes()/60,open=h>=hrs[today][0]&&h<hrs[today][1];
+$('#statusTxt').textContent=open?'Reception open':'Reception closed';
+$('#dot').className='h-2 w-2 rounded-full '+(open?'bg-green-500':'bg-mute');
+
+/* NEWSLETTER */
+$('#news').addEventListener('submit',e=>{e.preventDefault();$('#newsMsg').textContent='Subscribed. Your first note arrives next month.';e.target.reset()});
+
+/* Image fallback so a failed load never leaves a blank hole */
+$$('img').forEach(i=>i.addEventListener('error',()=>{i.style.visibility='hidden';i.parentElement.classList.add('ph')}));
+</script>
+</body>
+</html>
